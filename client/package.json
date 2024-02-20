@@ -3,19 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^1.6.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-router-dom": "^6.22.1",
+    "react-router-hash-link": "^2.4.3",
     "react-scripts": "5.0.1",
+    "react-toastify": "^10.0.4",
     "web-vitals": "^2.1.4"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/thepranaygupta/react-tailwind-css-starter-pack.git"
-  },
-  "author": "Pranay Gupta",
-  "bugs": {
-    "url": "https://github.com/thepranaygupta/react-tailwind-css-starter-pack/issues"
-  },
+  "author": "Gamandeep Singh",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
