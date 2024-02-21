@@ -18,8 +18,7 @@ exports.userData = async (req,res)=>{
     } = req.body
 
     if(!name){
-        res.status(400).json({message:"Enter Your Name Please"})
-        console.log("b");
+       return res.status(400).json({message:"Enter Your Name Please"})
     }
     // console.log("c");
 

@@ -39,7 +39,7 @@ function App() {
         <div className="">
           <div className="z-50 fixed right-0 flex items-center justify-center gap-2 top-0 bg-blue-500 text-xl font-bold text-white font-mono h-[10vh] pr-5 min-md:w-[10vw] rounded-2xl max-md:top-[150px]  max-md:px-1  max-md:py-[8px] ">
               <img src={coin} className="w-10" alt="" />
-              <p>{location.pathname!=="/" ? count :"0"}</p>
+              <p>{location.pathname==="/dashboard" ? count :"0"}</p>
       </div>
           <Routes>
           <Route path="/" element={<Homepage />} />
