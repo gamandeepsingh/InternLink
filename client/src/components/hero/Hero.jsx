@@ -5,7 +5,7 @@ import hero from "./assets/hero.png";
 
 function Hero() {
   return (
-    <div className="w-screen h-full mt-10 max-w-[1080px]  flex flex-wrap justify-center items-center ">
+    <div className="w-screen h-full mt-10 max-w-[1080px]  flex flex-wrap justify-center items-center relative">
         <div className="clip-path1"></div>
         <div className="clip-path2"></div>
       {/* left */}
@@ -43,7 +43,7 @@ function Hero() {
       </div>
       {/* right */}
       <div className="w-1/2  h-4/5 max-md:w-screen">
-        <img src={hero} alt="hero_img" />
+        <img className="hero-img" src={hero} alt="hero_img" />
       </div>
     </div>
   );

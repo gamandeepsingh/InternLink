@@ -47,7 +47,7 @@ if(loading){
 }
   return (
     <div className='w-screen flex flex-col items-center overflow-x-hidden'>
-      <div className='w-fit justify-center min-h-[90vh] h-full'>
+      <div className='w-fit justify-center min-h-[90vh] h-full '>
       <Hero/>
       </div>
       <div className='w-screen  min-h-[100vh] h-full flex justify-center items-center'>

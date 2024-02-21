@@ -68,6 +68,10 @@ const userSchema = new mongoose.Schema({
     coverLetter:{
         type:String
     },
+    coin:{
+        type:Number,
+        default:50
+    },
     tokens:[
         {
             token:{
