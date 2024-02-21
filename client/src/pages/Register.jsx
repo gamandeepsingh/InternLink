@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import { useNavigate} from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { sendOtpFunction } from "../services/Apis";
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
+import { ToastContainer,toast } from 'react-toastify'
+import { sendOtpFunction } from '../services/Apis';
 
 function Register() {
-  const [email, setEmail] = useState("");
+    const [email, setEmail] = useState("");
+    const [name, setName] = useState("");
   const navigate = useNavigate()
   //validation
 async function sendOTP(e) {
@@ -16,6 +16,7 @@ async function sendOTP(e) {
         toast.error("Enter valid Email")
     }else{
       const data = {
+        name:name,
         email:email
       }
       const response = await sendOtpFunction(data)
@@ -54,6 +55,17 @@ async function sendOTP(e) {
             <div className="w-full mt-4">
               <input
                 className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg    focus:border-blue-400  focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
+                name="name"
+                type="text"
+                value={name}
+                placeholder="Enter Your Name"
+                onChange={(e) => setName(e.target.value)}
+                aria-label="Enter Your Name"
+              />
+            </div>
+            <div className="w-full mt-4">
+              <input
+                className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg    focus:border-blue-400  focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
                 name="email"
                 type="email"
                 value={email}
@@ -79,4 +91,4 @@ async function sendOTP(e) {
   );
 }
 
-export default Register;
+export default Register

@@ -1,78 +1,125 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styles/profile.css";
+import {ToastContainer, toast } from "react-toastify";
+import { sendProfile } from "../services/Apis";
 function Profile() {
+
+  const [inputData , setInputData]=useState({
+    name:"",
+    mobile:"",
+    profilePic:"",
+    linkedinLink:"",
+    githubLink:"",
+    resume:"",
+    typeOfSchool:"School",
+    schoolName:"",
+    eduStartDate:"",
+    eduEndDate:"",
+    projectName:"",
+    projectDescription:"",
+    typeOfProject:"Solo",
+    pastExperiencedType:"Internship",
+    companyName:"",
+    companyWebsiteLink:"",
+    role:"",
+    expStartDate:"",
+    expEndDate:"",
+    coverLetter:""
+  })
+
+  function handleChange(e){
+    const {name,value} = e.target;
+    setInputData({...inputData,[name]:value})
+    console.log(inputData);
+  }
+
+ async function handleSubmit(e){
+    e.preventDefault()
+    const {
+      name,mobile,profilePic,linkedinLink,githubLink,resume,typeOfSchool,schoolName,eduStartDate,eduEndDate,projectName,projectDescription,typeOfProject,paseexperiencedType,compantName,companyWebsiteLink,role,expStartDate, expEndDate,cover 
+    } = inputData
+    if(name===""){
+      toast.error("Enter the Name Please")
+    }else{
+      toast.success("profile Saved suuccessfully")
+      const response = await sendProfile(inputData)
+      if(response)
+      console.log(response);
+    }
+
+  }
   return (
     <div className="w-[90vw] max-w-[1200px] justify-center mx-auto px-5">
-      <form id="ft-form" accept-charset="UTF-8" enctype="multipart/form-data">
+      <form id="ft-form"   onSubmit={handleSubmit}>
         <h1 className="text-4xl text-center font-extrabold m-3 underline">Profile Application</h1>
         <fieldset>
           <legend>Personal Details</legend>
-          <div class="two-cols">
+          <div className="two-cols">
             <label>
               Name:
-              <input type="text" name="name" placeholder="Enter Your Name" />
+              <input type="text" name="name" onChange={(e)=>handleChange(e)} placeholder="Enter Your Name" />
             </label>
             <label>
               Mobile:
-              <input  type="text" name="mobile" placeholder="Enter Your Mobile No." />
+              <input  type="text" name="mobile" onChange={(e)=>handleChange(e)} placeholder="Enter Your Mobile No." />
             </label>
           </div>
-          <div class="two-cols">
+          <div className="two-cols">
             <label>
               Profile Pic:
-              <input type="file" name="profilePic" accept=".doc,.docx,.pdf"/>
+              <input type="file" name="profilePic" onChange={(e)=>handleChange(e)} />
             </label>
             <label>
               LinkedIn Profile:
-              <input type="text" name="linkedinLink" placeholder="Enter Link"/>
+              <input type="text" name="linkedinLink" onChange={(e)=>handleChange(e)} placeholder="Enter Link"/>
             </label>
           </div>
-          <div class="two-cols">
+          <div className="two-cols">
             <label>
               GitHub Profile:
-              <input type="text" name="githubLink" placeholder="Enter Link" />
+              <input type="text" name="githubLink" onChange={(e)=>handleChange(e)} placeholder="Enter Link" />
             </label>
             <label>
               Resume:
-              <input type="file" name="Date of birth" />
+              <input type="file" name="resume" onChange={(e)=>handleChange(e)} accept=".doc,.docx,.pdf"/>
             </label>
 
           </div>
           <legend>Education Details</legend>
           <label htmlFor="typeOfSchool">Type (School/College):</label>
-            <select name="typeOfSchool" >
+            <select name="typeOfSchool" onChange={(e)=>handleChange(e)}>
               <option id="typeOfSchool">School</option>
               <option id="typeOfSchool">College</option>
             </select>
           <label>
             School/College Name:
-            <input type="text" name="schoolName" placeholder="Enter Your School/College Name"/>
+            <input type="text" name="schoolName" onChange={(e)=>handleChange(e)} placeholder="Enter Your School/College Name"/>
           </label>
-          <div class="two-cols">
+          <div className="two-cols">
             <label>
               Start Data:
-              <input type="date" name="eduStartDate" />
+              <input type="date" name="eduStartDate" onChange={(e)=>handleChange(e)}/>
             </label>
             <label>
               End Date:
-              <input type="date" name="eduEndDate" />
+              <input type="date" name="eduEndDate" onChange={(e)=>handleChange(e)}/>
             </label>
           </div>
           <legend>Project Details</legend>
-          <div class="two-cols">
+          <div className="two-cols">
             <label>
               Project Name:
-              <input type="text" name="projectName" placeholder="Enter Your Project Name"/>
+              <input type="text" name="projectName" onChange={(e)=>handleChange(e)} placeholder="Enter Your Project Name"/>
             </label>
             <label>
               Project Description <span className="text-xs">(max 200 words)</span> :
-              <input type="email" name="projectDescription" placeholder="Enter Your Project Description"  />
+              <input type="text" name="projectDescription" onChange={(e)=>handleChange(e)} placeholder="Enter Your Project Description"  />
             </label>
           </div>
-          <div class="two-cols">
+          <div className="two-cols">
             <label>
             Solo Project / Group Project:
-            <select name="typeOfProject" >
+            <select name="typeOfProject" onChange={(e)=>handleChange(e)}>
               <option id="typeOfProject">Solo</option>
               <option id="typeOfProject">Group</option>
             </select>
@@ -84,10 +131,10 @@ function Profile() {
         <fieldset>
           <legend>Past Experienced</legend>
           <input type="hidden" name="MAX_FILE_SIZE" value="10485760" />
-          <div class="two-cols">
+          <div className="two-cols">
             <label htmlFor="pastExperiencedType">
               Type (Internship/Job):
-              <select name="pastExperiencedType">
+              <select name="pastExperiencedType" onChange={(e)=>handleChange(e)}>
               <option id="pastExperiencedType">Internship</option>
               <option id="pastExperiencedType">Job</option>
             </select>
@@ -98,16 +145,18 @@ function Profile() {
                 type="text"
                 name="companyName"
                 placeholder="Enter Your Company Name"
+                onChange={(e)=>handleChange(e)}
               />
             </label>
           </div>
-          <div class="two-cols">
+          <div className="two-cols">
             <label htmlFor="companyWebsiteLink">
               Company Website Link:
               <input
                 type="text"
                 name="companyWebsiteLink"
                 placeholder="Enter Your Link"
+                onChange={(e)=>handleChange(e)}
               />
             </label>
             <label>
@@ -116,15 +165,17 @@ function Profile() {
                 type="text"
                 name="role"
                 placeholder="Enter Your Role"
+                onChange={(e)=>handleChange(e)}
               />
             </label>
           </div>
-          <div class="two-cols">
+          <div className="two-cols">
             <label htmlFor="expStartDate">
               Start Date:
               <input
                 type="Date"
                 name="expStartDate"
+                onChange={(e)=>handleChange(e)}
               />
             </label>
             <label htmlFor="expEndDate">
@@ -132,6 +183,7 @@ function Profile() {
               <input
                 type="date"
                 name="expEndDate"
+                onChange={(e)=>handleChange(e)}
               />
             </label>
           </div>
@@ -140,13 +192,16 @@ function Profile() {
               <input
                 type="file"
                 name="coverLetter"
+                onChange={(e)=>handleChange(e)}
+                accept=".doc,.docx,.pdf"
               />
             </label>
         </fieldset>
-        <div class="btns">
+        <div className="btns">
           <button className="flex justify-center mx-auto bg-blue-500 text-white text-2xl py-2 px-4 mb-10 rounded-xl hover:scale-110 transition-scale duration-100">Submit</button>
         </div> 
       </form>
+      <ToastContainer/>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 const UserOtp = require("../models/userOtp")
 const nodemailer = require('nodemailer')
+const User = require('../models/userSchema')
 require('dotenv').config()
 
 // email config
@@ -11,11 +12,26 @@ const transporter = nodemailer.createTransport({
     }
 })
 
+exports.userData = async (req,res)=>{
+    const {
+      name,mobile,profilePic,linkedinLink,githubLink,resume,typeOfSchool,schoolName,eduStartDate,eduEndDate,projectName,projectDescription,typeOfProject,paseexperiencedType,compantName,companyWebsiteLink,role,expStartDate, expEndDate,cover 
+    } = req.body
+
+    if(!name){
+        res.status(400).json({message:"Enter Your Name Please"})
+    }
+    try {
+        
+    } catch (err) {
+        
+    }
+}
+
 
 exports.userOtpSend = async(req,res)=>{
-    const {email} = req.body;
-    if(!email){
-        res.status(400).json({error:"please Enter Your Email"})
+    const {email,name} = req.body;
+    if(!email || !name){
+        res.status(400).json({error:"please Enter Your Email and Name"})
     }
     try {
         const OTP = Math.floor(100000 + Math.random()*90000)
@@ -44,14 +60,14 @@ exports.userOtpSend = async(req,res)=>{
             })
         }else{
             const saveOtpData = new UserOtp({
-                email,otp:OTP
+               name,email,otp:OTP
             })
             await saveOtpData.save()
             const mailOptions ={
                 from:process.env.EMAIL,
                 to:email,
                 subject:"Sending Email for OTP verification",
-                text:`OTP: ${OTP}`
+                text:`Hello ${name}! <br/> Here is the OTP: ${OTP}`
             }
             transporter.sendMail(mailOptions,(error,info)=>{
                 if(error){
@@ -80,7 +96,10 @@ exports.userLogin = async (req,res) =>{
     try {
         const otpverification =  await UserOtp.findOne({email:email})
         if(otpverification.otp === otp){
-            const preuser = await User
+            const preuser = await User.findOne({email:email})
+
+            const token = await preuser.generateAuthToken()
+            console.log(token);
         }else{
             res.status(400).json({error:"Invalid OTP"})
         }

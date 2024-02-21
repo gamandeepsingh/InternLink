@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { ToastContainer,toast } from 'react-toastify'
+import toast, { Toaster } from 'react-hot-toast';
 import { userVerify } from '../services/Apis'
 
 function Otp() {
@@ -29,6 +29,13 @@ function Otp() {
       }
 
       const response = await userVerify(data)
+      if(response.response.ststus === 200){
+        console.log(response);
+        navigate('/dashboard')
+      }
+      else{
+        toast.error("Wrong OTP")
+      }
     }
   }
   return (
@@ -75,7 +82,7 @@ function Otp() {
           </form>
         </div>
       </div>
-      <ToastContainer/>
+      <Toaster />
     </div>
   )
 }

@@ -1,4 +1,7 @@
 const mongoose = require('mongoose')
+const validator = require('validator')
+const jwt = require("jsonwebtoken")
+const SECRET_KEY = "abcd"
 
 const userSchema = new mongoose.Schema({
     name:{
@@ -7,10 +10,9 @@ const userSchema = new mongoose.Schema({
     },
     mobile:{
         type:Number,
-        required:true,
     },
     profilePic:{
-        type:File
+        type:String
     },
     linkedinLink:{
         type:String
@@ -64,7 +66,7 @@ const userSchema = new mongoose.Schema({
         type:String
     },
     coverLetter:{
-        type:File
+        type:String
     },
     tokens:[
         {
@@ -75,6 +77,22 @@ const userSchema = new mongoose.Schema({
         }
     ]
 })
+
+// token generate
+userSchema.methods.generateAuthToken = async ()=>{
+    try {
+        let newToken = jwt.sign({_id:this._id},SECRET_KEY,{
+            expiresIn:"1d"
+        })
+
+        this.tokens = this.tokens.concat({token:newToken});
+        await this.save()
+        return newToken
+
+    } catch (error) {
+        resizeBy.status(400).json(error)
+    }
+}
 
 const User = new mongoose.model("User",userSchema)
 module.exports = User 

@@ -1,0 +1,31 @@
+.clip-path1 {
+    position: absolute;
+    top: -40px;
+    left: -200px;
+    clip-path: polygon(20.3% 0%, 93.1% 0%, 89.7% 29.8%, 70.1% 30%, 49.8% 67.8%, 33.6% 61.5%, 17.4% 97%);
+    background-color: #3B82F6;
+    /* scale: 0.6;/ */
+    height: 60vh;
+    width: 60vw;
+    aspect-ratio: 1/1;
+    z-index: -10;
+}
+@media (max-width:600px) {
+    .clip-path1{
+        display: none;
+    }
+    .clip-path2{
+        display: none;
+    }
+}
+.clip-path2 {
+    position: absolute;
+    
+    bottom: 0;
+    right: -200px;
+    clip-path: polygon(92.2% 100.3%, 93.1% 0%, 89.7% 29.8%, 70.1% 30%, 49.8% 67.8%, 33.6% 61.5%, 17.4% 100.3%);    background-color: #3B82F6;
+    height: 40vh;
+    width: 40vw;
+    aspect-ratio: 1/1;
+    z-index: -10;
+}
