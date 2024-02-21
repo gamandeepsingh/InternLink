@@ -1,5 +1,5 @@
 import "./App.css";
-import { Route,Routes } from "react-router-dom";
+import { Route,Routes, useLocation } from "react-router-dom";
 import Headers from "./components/Headers";
 import Homepage from "./pages/Homepage";
 import Register from "./pages/Register";
@@ -11,9 +11,12 @@ import Loader from "./components/loader/Loader";
 import { useEffect, useState } from "react";
 import { sendProfile } from "./services/Apis";
 import coin from "./assests/coin.png"
+import { useSelector } from "react-redux";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
+  const count = useSelector((state) => state.coin.value)
+  const location = useLocation()
 
   useEffect(() => {
     setTimeout(() => {
@@ -34,9 +37,9 @@ function App() {
         <Loader /> 
       ) : (
         <div className="">
-          <div className="z-50 fixed right-0 flex items-center gap-2 top-0 bg-blue-500 text-xl font-bold text-white font-mon px-3 py-[16.5px] rounded-2xl max-md:top-[70px]  max-md:px-1  max-md:py-[8px] ">
-              <img src={coin} className="w-10 h-full" alt="" />
-              <p>50</p>
+          <div className="z-50 fixed right-0 flex items-center justify-center gap-2 top-0 bg-blue-500 text-xl font-bold text-white font-mono h-[10vh] pr-5 min-md:w-[10vw] rounded-2xl max-md:top-[150px]  max-md:px-1  max-md:py-[8px] ">
+              <img src={coin} className="w-10" alt="" />
+              <p>{location.pathname!=="/" ? count :"0"}</p>
       </div>
           <Routes>
           <Route path="/" element={<Homepage />} />

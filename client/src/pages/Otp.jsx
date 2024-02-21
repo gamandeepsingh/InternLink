@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import toast, { Toaster } from 'react-hot-toast';
 import { userVerify } from '../services/Apis'
+import logo from "../assests/logo.png"
+
 
 function Otp() {
   const [otp, setOtp] = useState("")
@@ -27,11 +29,12 @@ function Otp() {
         otp,
         email:location.state
       }
-
+      // console.log(data);
       const response = await userVerify(data)
-      if(response.response.ststus === 200){
+      // console.log(response);
+      if(response.status === 200){
         console.log(response);
-        navigate('/dashboard')
+        navigate('/dashboard',{state:data})
       }
       else{
         toast.error("Wrong OTP")
@@ -43,11 +46,11 @@ function Otp() {
       <div className="w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-md  h-s">
         <div className="px-6 py-4">
           <div className="flex justify-center mx-auto">
-            {/* <img
-              className="w-auto h-7 sm:h-8"
-              src="https://merakiui.com/images/logo.svg"
+          <img
+              className="w-auto h-15 sm:h-15"
+              src={logo}
               alt="InterLink"
-            /> */}
+            />
           </div>
 
           <h3 className="mt-3 text-xl font-medium text-center text-gray-600 ">
@@ -58,7 +61,7 @@ function Otp() {
             OTP is sent on your Email
           </p>
 
-          <form onSubmit={checkOTP}>
+          <form onSubmit={(e)=>checkOTP(e)}>
             <div className="w-full mt-4">
               <input
                 className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg    focus:border-blue-400  focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"

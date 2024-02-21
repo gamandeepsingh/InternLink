@@ -11,7 +11,7 @@ function Hero() {
       {/* left */}
       <div className="w-1/2  h-4/5 max-md:w-screen">
         <div className="flex flex-col items-start justify-center px-5 h-full space-y-4 gap-5">
-          <h1 className="font-bold font-mono text-blue-500 text-[4rem]">InternLink</h1>
+          <h1 className="font-bold font-mono text-blue-500 text-[4rem] max-mlg:text-[3rem] max-sm:text-[2.5rem]">InternLink</h1>
           <ReactTyped
             strings={[
               "Your Insightful Internship Hub",

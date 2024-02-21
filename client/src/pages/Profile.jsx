@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../styles/profile.css";
-import {ToastContainer, toast } from "react-toastify";
+import toast, { Toaster } from 'react-hot-toast';
 import { sendProfile } from "../services/Apis";
 function Profile() {
 
@@ -30,7 +30,7 @@ function Profile() {
   function handleChange(e){
     const {name,value} = e.target;
     setInputData({...inputData,[name]:value})
-    console.log(inputData);
+    // console.log(inputData);
   }
 
  async function handleSubmit(e){
@@ -200,8 +200,8 @@ function Profile() {
         <div className="btns">
           <button className="flex justify-center mx-auto bg-blue-500 text-white text-2xl py-2 px-4 mb-10 rounded-xl hover:scale-110 transition-scale duration-100">Submit</button>
         </div> 
+      <Toaster/>
       </form>
-      <ToastContainer/>
     </div>
   );
 }

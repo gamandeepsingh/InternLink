@@ -14,16 +14,43 @@ const transporter = nodemailer.createTransport({
 
 exports.userData = async (req,res)=>{
     const {
-      name,mobile,profilePic,linkedinLink,githubLink,resume,typeOfSchool,schoolName,eduStartDate,eduEndDate,projectName,projectDescription,typeOfProject,paseexperiencedType,compantName,companyWebsiteLink,role,expStartDate, expEndDate,cover 
+      name,mobile,profilePic,linkedinLink,githubLink,resume,typeOfSchool,schoolName,eduStartDate,eduEndDate,projectName,projectDescription,typeOfProject,pastExperiencedType,companyName,companyWebsiteLink,role,expStartDate, expEndDate,coverLetter
     } = req.body
 
     if(!name){
         res.status(400).json({message:"Enter Your Name Please"})
+        console.log("b");
     }
+    // console.log("c");
+
     try {
-        
+        const preuser = await User.findOne({name:name})
+        // console.log(preuser);
+        if(preuser){
+            const data = await User.findByIdAndUpdate(
+                {_id:preuser._id},
+                {mobile,profilePic,linkedinLink,githubLink,resume,typeOfSchool,schoolName,eduStartDate,eduEndDate,projectName,projectDescription,typeOfProject,pastExperiencedType,companyName,companyWebsiteLink,role,expStartDate, expEndDate,coverLetter},{new:true}
+            )
+
+            res.status(200).json({message:"Succesfully updated Database",data:data})
+        }
+        else{
+            // console.log("d");
+
+            const newUser = new User({
+                name, mobile, profilePic, linkedinLink, githubLink, resume, typeOfSchool, schoolName, eduStartDate, eduEndDate, projectName, projectDescription, typeOfProject, pastExperiencedType, companyName, companyWebsiteLink, role, expStartDate, expEndDate, coverLetter
+            });
+            
+            const data = await newUser.save();
+            console.log("e");
+            res.status(200).json({message:"User Added Succesfully",data:data})
+            console.log("f");
+        }
     } catch (err) {
-        
+        res.status(400).json({
+            error:"Error in loading data in database",
+            error:err
+        })
     }
 }
 
@@ -45,8 +72,8 @@ exports.userOtpSend = async(req,res)=>{
             const mailOptions ={
                 from:process.env.EMAIL,
                 to:email,
-                subject:"Sending Email for OTP verification",
-                text:`OTP: ${OTP}`
+                subject:"OTP verification From Team-INTERNLINK",
+                text:`Hello ${name}! <br/> here is the OTP: ${OTP}`
             }
             transporter.sendMail(mailOptions,(error,info)=>{
                 if(error){
@@ -93,13 +120,12 @@ exports.userLogin = async (req,res) =>{
     if(!otp || !email){
         res.status(400).json({error:"please Enter Your OTP and Email"})
     }
-    try {
+    try{
         const otpverification =  await UserOtp.findOne({email:email})
+        
         if(otpverification.otp === otp){
-            const preuser = await User.findOne({email:email})
 
-            const token = await preuser.generateAuthToken()
-            console.log(token);
+            res.status(200).json({message:"User Login Successfully"})
         }else{
             res.status(400).json({error:"Invalid OTP"})
         }

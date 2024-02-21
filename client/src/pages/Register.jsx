@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { ToastContainer,toast } from 'react-toastify'
+import toast, { Toaster } from 'react-hot-toast';
 import { sendOtpFunction } from '../services/Apis';
+import logo from "../assests/logo.png"
 
 function Register() {
     const [email, setEmail] = useState("");
@@ -37,8 +38,8 @@ async function sendOTP(e) {
         <div className="px-6 py-4">
           <div className="flex justify-center mx-auto">
             <img
-              className="w-auto h-7 sm:h-8"
-              src="https://merakiui.com/images/logo.svg"
+              className="w-auto h-15 sm:h-15"
+              src={logo}
               alt="InterLink"
             />
           </div>
@@ -86,7 +87,7 @@ async function sendOTP(e) {
           </form>
         </div>
       </div>
-      <ToastContainer/>
+      <Toaster />
     </div>
   );
 }

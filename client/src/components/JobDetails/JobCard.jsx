@@ -2,7 +2,7 @@ import React from 'react'
 
 function JobCard({data}) {
   return (
-    <div className='w-[300px] h-[500px] p-4 flex flex-col justify-center items-start gap-3 m-5 border-2 border-blue-500 group rounded-xl'>
+    <div className='w-[320px] h-[530px] max-md:h-full p-4 flex flex-col justify-between items-start gap-3 m-5 border-2 border-blue-500 group rounded-xl'>
         <div className='w-[150px] h-[100px] flex justify-center group-hover:scale-125 transition-scale duration-100 mx-auto'>
             <img src={data.image} className='w-[100px]  mt-3' alt="" />
         </div>
